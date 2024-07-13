@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { productRoutes } from './modules/products/routes';
+import { productRoutes } from './modules/gameProducts/routes';
 import { cartRoutes } from './modules/cart/routes';
 import { adminRoutes } from './modules/admin/routes';
 import { authRoutes } from './modules/auth/routes';
