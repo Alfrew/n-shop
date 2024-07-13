@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { productRoutes } from './modules/products';
-import { cartRoutes } from './modules/cart';
-import { adminRoutes } from './modules/admin';
-import { authRoutes } from './modules/auth';
+import { productRoutes } from './modules/products/routes';
+import { cartRoutes } from './modules/cart/routes';
+import { adminRoutes } from './modules/admin/routes';
+import { authRoutes } from './modules/auth/routes';
 
 const routes: Array<RouteRecordRaw> = [];
 
-routes.concat(productRoutes);
-routes.concat(cartRoutes);
-routes.concat(authRoutes);
-routes.concat(adminRoutes);
+routes.push(...productRoutes);
+routes.push(...cartRoutes);
+routes.push(...authRoutes);
+routes.push(...adminRoutes);
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
