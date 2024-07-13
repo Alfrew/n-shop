@@ -5,10 +5,6 @@ import cart from './modules/cart/store/cart';
 import products from './modules/products/store/products';
 
 export default createStore({
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
   modules: {
     admin,
     auth,
