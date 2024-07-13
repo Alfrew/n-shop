@@ -4,7 +4,7 @@ import auth from './modules/auth/store/auth';
 import cart from './modules/cart/store/cart';
 import products from './modules/products/store/products';
 
-export default createStore({
+export default createStore<any>({
   modules: {
     admin,
     auth,
