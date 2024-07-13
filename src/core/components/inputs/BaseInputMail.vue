@@ -28,7 +28,3 @@ watch(isValid, () => {
   emit('isValid', isValid.value);
 });
 </script>
-
-<style scoped lang="scss">
-@import './BaseControl.scss';
-</style>
