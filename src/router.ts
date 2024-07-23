@@ -4,7 +4,7 @@ import { cartRoutes } from './modules/cart/routes';
 import { adminRoutes } from './modules/admin/routes';
 import { authRoutes } from './modules/auth/routes';
 
-const routes: Array<RouteRecordRaw> = [];
+const routes: Array<RouteRecordRaw> = [{ path: '/', redirect: '/games' }];
 
 routes.push(...productRoutes);
 routes.push(...cartRoutes);
