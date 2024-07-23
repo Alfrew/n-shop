@@ -14,7 +14,7 @@ export default {
         id: 'g1',
         imageUrl: '',
         name: 'GameFinder',
-        price: '59.99',
+        price: 59.99,
         type: 'GAME',
       },
     ],
