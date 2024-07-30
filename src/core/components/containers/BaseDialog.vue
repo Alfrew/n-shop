@@ -1,28 +1,35 @@
 <template>
   <Teleport to="body">
-    <div v-if="show" @click="tryClose" class="backdrop"></div>
-    <Transition name="dialog">
-      <dialog open v-if="show">
-        <header>
-          <slot name="header">
-            <h2>{{ title }}</h2>
-          </slot>
-        </header>
-        <section>
-          <slot></slot>
-        </section>
-        <menu v-if="!fixed">
-          <slot name="actions">
-            <base-button @click="tryClose">Close</base-button>
-          </slot>
-        </menu>
-      </dialog>
-    </Transition>
+    <div class="modal is-active">
+      <div v-if="show" @click="tryClose" class="modal-background"></div>
+      <Transition name="dialog">
+        <div v-if="show" class="modal-card">
+          <header class="modal-card-head">
+            <slot name="header">
+              <p class="modal-card-title">{{ title }}</p>
+            </slot>
+          </header>
+
+          <section class="modal-card-body">
+            <!-- Content ... -->
+            <slot></slot>
+          </section>
+
+          <footer class="modal-card-foot is-justify-content-end">
+            <div class="buttons">
+              <slot name="actions">
+                <base-button mode="is-light" icon="fa-xmark" @click="tryClose()">Close</base-button>
+              </slot>
+            </div>
+          </footer>
+        </div>
+      </Transition>
+    </div>
   </Teleport>
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue';
+import { toRefs } from "vue";
 
 const props = defineProps({
   show: {
@@ -40,61 +47,22 @@ const props = defineProps({
   },
 });
 const { fixed, show, title } = toRefs(props);
-const emit = defineEmits(['close']);
+const emit = defineEmits(["close"]);
 function tryClose() {
   if (fixed.value) {
     return;
   }
-  emit('close');
+  emit("close");
 }
 </script>
 
 <style scoped lang="scss">
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.75);
-  z-index: 10;
-}
-
-dialog {
-  position: fixed;
-  top: 20vh;
-  left: 10%;
-  width: 80%;
-  z-index: 100;
-  border-radius: 12px;
-  border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  background-color: white;
-}
-
-header {
-  background-color: #3a0061;
-  color: white;
-  width: 100%;
-  padding: 1rem;
-}
-
-header h2 {
-  margin: 0;
-}
-
-section {
-  padding: 1rem;
-}
-
-menu {
-  padding: 1rem;
-  display: flex;
-  justify-content: flex-end;
-  margin: 0;
+.modal {
+  pointer-events: none;
+  .modal-card,
+  .modal-background {
+    pointer-events: all;
+  }
 }
 
 .dialog-enter-active {
