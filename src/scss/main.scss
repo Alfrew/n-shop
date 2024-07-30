@@ -1,5 +1,9 @@
 // Customizations Here (Optional)
 
 // Bulma Import
-@import '~bulma';
-@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import "~bulma";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+.empty-p {
+  min-height: 1.5em;
+}

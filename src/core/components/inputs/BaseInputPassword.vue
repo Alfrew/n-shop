@@ -1,31 +1,35 @@
 <template>
   <div class="field">
-    <label class="label" for="password">{{ inputLabel }}</label>
+    <label class="label" for="password">{{ inputControl.controlLabel ?? "Password" }}</label>
     <div class="control">
-      <input class="input" :class="{ 'is-danger': !isValid && isTouched }" type="password" id="password" v-model.trim="inputControl" @blur.once="wasTouched()" />
+      <input
+        class="input"
+        :class="{ 'is-danger': !isValid && isTouched }"
+        type="password"
+        id="password"
+        v-model.trim="controlValue"
+        @focus.once="testControlValidity(controlValue, inputControl.validators)"
+        @blur.once="wasTouched()" />
     </div>
-    <p class="help is-danger" v-if="!isValid && isTouched">
-      The password must contains minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
-    </p>
+    <p class="help is-danger empty-p">{{ !isValid && isTouched ? errorMessage : "" }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import useControlTouched from '@/core/hooks/controlTouched';
-import useControlValidator from '@/core/hooks/controlValidator';
-import { toRefs, watch } from 'vue';
+import useControlTouched from "@/core/hooks/controlTouched";
+import useControlValidator from "@/core/hooks/controlValidator";
+import { PropType, toRefs, watch } from "vue";
+import { InputControl } from "./InputControl";
 
-const emit = defineEmits(['isValid']);
-const props = defineProps({ inputLabel: { type: String, default: 'Password' } });
-const { inputLabel } = toRefs(props);
-const inputControl = defineModel<string>({ required: true });
+const emit = defineEmits(["isValid"]);
+const props = defineProps({ inputControl: { type: Object as PropType<InputControl>, required: true } });
+const { inputControl } = toRefs(props);
+const controlValue = defineModel<string>({ required: true });
 
-const passwordRegExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
-
-const { isValid } = useControlValidator(inputControl, passwordRegExp);
+const { isValid, errorMessage, testControlValidity } = useControlValidator(controlValue, inputControl.value);
 const { isTouched, wasTouched } = useControlTouched();
 
 watch(isValid, () => {
-  emit('isValid', isValid.value);
+  emit("isValid", isValid.value);
 });
 </script>
