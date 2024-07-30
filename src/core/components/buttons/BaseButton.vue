@@ -1,5 +1,5 @@
 <template>
-  <button v-if="!link" class="button" :class="[mode, color, { 'is-loading': isLoading }]">
+  <button v-if="!link" class="button" :disabled="isDisabled" :class="[mode, color, { 'is-loading': isLoading }]">
     <span v-if="icon" class="icon">
       <i class="fas" :class="icon"></i>
     </span>
@@ -50,6 +50,11 @@ const props = defineProps({
     required: false,
     default: false,
   },
+  isDisabled: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 });
-const { link, mode, to, color, isLoading, icon } = toRefs(props);
+const { link, mode, to, color, isLoading, icon, isDisabled } = toRefs(props);
 </script>
