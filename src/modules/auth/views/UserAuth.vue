@@ -12,9 +12,9 @@
         <base-input-password v-model="inputPassword" :input-control="controlPassword" @is-valid="updateValidity('password', $event)"></base-input-password>
         <div class="buttons is-centered">
           <base-button color="is-primary">{{ submitButtonCaption }}</base-button>
-          <base-button type="button" mode="is-light" @click="switchAuthMode">
+          <!-- <base-button type="button" mode="is-light" @click="switchAuthMode">
             {{ switchButtonCaption }}
-          </base-button>
+          </base-button> -->
         </div>
       </form>
     </base-card>
