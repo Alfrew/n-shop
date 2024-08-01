@@ -19,14 +19,14 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, computed, toRefs } from 'vue';
-import { GameProduct } from '../models/GameProduct';
+import { PropType, computed, toRefs } from "vue";
+import { GameProduct } from "../models/GameProduct";
 
 const props = defineProps({ productGame: { type: Object as PropType<GameProduct>, required: true } });
 const { productGame } = toRefs(props);
 
 const productGameLink = computed(() => {
-  return { name: 'productDetail', params: { id: productGame.value.id } };
+  return { name: "productDetail", params: { id: productGame.value.id } };
 });
 </script>
 
@@ -38,5 +38,8 @@ const productGameLink = computed(() => {
 }
 .card-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 </style>
