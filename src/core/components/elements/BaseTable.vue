@@ -1,33 +1,35 @@
 <template>
-  <table class="table is-fullwidth">
-    <thead>
-      <tr>
-        <th v-for="column in columnList" :key="column.dataKey">
-          {{ column.header }}
-        </th>
-      </tr>
-    </thead>
+  <div class="table-wrapper">
+    <table class="table is-fullwidth is-hoverable has-sticky-header">
+      <thead>
+        <tr>
+          <th v-for="column in columnList" :key="column.dataKey">
+            {{ column.header }}
+          </th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <tr v-for="(item, idx) in dataSource" :key="idx">
-        <td v-for="column in columnList" :key="column.dataKey" :class="column.textAlign ?? 'has-text-left'">
-          <!-- LINK -->
-          <router-link v-if="column.type == 'link'" :to="column.url">{{ item[column.dataKey] }}</router-link>
-          <!-- CTA -->
-          <span v-else-if="column.type == 'action'">
-            <span v-for="(icon, idx) in column.icons" :key="idx" class="icon">
-              <i class="fa" :class="icon.iconName" @click="emitIconAction(icon.iconName, item.id)" :title="icon.tooltip"></i>
+      <tbody>
+        <tr v-for="(item, idx) in dataSource" :key="idx">
+          <td v-for="column in columnList" :key="column.dataKey" :class="column.textAlign ?? 'has-text-left'">
+            <!-- LINK -->
+            <router-link v-if="column.type == 'link'" :to="column.url">{{ item[column.dataKey] }}</router-link>
+            <!-- CTA -->
+            <span v-else-if="column.type == 'action'">
+              <span v-for="(icon, idx) in column.icons" :key="idx" class="icon">
+                <i class="fa" :class="icon.iconName" @click="emitIconAction(icon.iconName, item.id)" :title="icon.tooltip"></i>
+              </span>
             </span>
-          </span>
-          <!-- DEFAULT -->
-          <span v-else>
-            <span v-if="column.prefix">{{ column.prefix }}</span
-            >{{ item[column.dataKey] }}
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            <!-- DEFAULT -->
+            <span v-else>
+              <span v-if="column.prefix">{{ column.prefix }}</span
+              >{{ item[column.dataKey] }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -48,6 +50,18 @@ function emitIconAction(iconName: string, itemId: string) {
 </script>
 
 <style scoped lang="scss">
+.table-wrapper {
+  overflow: scroll;
+  position: relative;
+}
+.has-sticky-header {
+  border-collapse: separate;
+  thead tr th {
+    background-color: white;
+    position: sticky;
+    top: 0;
+  }
+}
 .icon {
   cursor: pointer;
   transition: opacity 250ms;
