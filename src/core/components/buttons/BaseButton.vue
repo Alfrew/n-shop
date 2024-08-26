@@ -18,7 +18,7 @@ const props = defineProps({
   mode: {
     type: String,
     required: false,
-    default: null,
+    default: "",
     validator(value: string) {
       return bulmaModeClasses.includes(value);
     },
@@ -26,7 +26,7 @@ const props = defineProps({
   color: {
     type: String,
     required: false,
-    default: null,
+    default: "",
     validator(value: string) {
       return bulmaColorClasses.includes(value);
     },
