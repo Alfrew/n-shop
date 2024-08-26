@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import TheHeader from './core/components/layout/TheHeader.vue';
+import TheHeader from "./core/components/layout/TheHeader.vue";
 </script>
 
 <style lang="scss">
@@ -19,6 +19,11 @@ import TheHeader from './core/components/layout/TheHeader.vue';
 }
 
 .router-wrapper {
-  margin: 48px 24px 0px;
+  margin: 48px 24px 24px;
+}
+
+.page-wrapper {
+  max-height: calc(100svh - 124px);
+  overflow: hidden;
 }
 </style>
