@@ -1,12 +1,12 @@
 <template>
   <div class="card">
-    <div class="card-image">
+    <router-link :to="productGameLink" class="card-image">
       <figure class="image">
         <img :src="productGame.imageUrl" alt="Game cover" />
       </figure>
-    </div>
+    </router-link>
     <header class="card-content">
-      <p class="title">{{ productGame.name }}</p>
+      <router-link :to="productGameLink" class="title">{{ productGame.name }}</router-link>
       <p class="subtitle">${{ productGame.price }}</p>
     </header>
     <div class="card-footer">
@@ -31,15 +31,35 @@ const productGameLink = computed(() => {
 </script>
 
 <style scoped lang="scss">
+@import "../../../scss/variables.scss";
 .card {
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-.card-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+
+  .card-image {
+    transition: transform 250ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  }
+
+  .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .title {
+    transition: color 250ms linear;
+  }
+
+  &:hover {
+    .card-image {
+      transform: translate(0, -20px);
+    }
+
+    .title {
+      color: $mainColor;
+    }
+  }
 }
 </style>

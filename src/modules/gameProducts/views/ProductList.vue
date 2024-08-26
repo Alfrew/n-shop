@@ -1,7 +1,9 @@
 <template>
-  <ul class="grid is-col-min-10">
+  <ul class="grid is-col-min-10 is-column-gap-4 is-row-gap-8">
     <li v-for="productGame in productGames" :key="productGame.id" class="cell">
-      <game-product-item :product-game="productGame"></game-product-item>
+      <enter-animate animationType="special-fade">
+        <game-product-item :product-game="productGame"></game-product-item>
+      </enter-animate>
     </li>
   </ul>
 </template>
@@ -9,6 +11,7 @@
 <script setup lang="ts">
 import { useStore } from "vuex";
 import GameProductItem from "../components/GameProductItem.vue";
+import EnterAnimate from "@/core/components/utilities/EnterAnimate.vue";
 import { GameProduct } from "../models/GameProduct";
 import { computed, onMounted, ref } from "vue";
 
