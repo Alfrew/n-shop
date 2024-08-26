@@ -1,23 +1,13 @@
-import { ActionContext } from 'vuex';
-import { GameProductStore } from '../models/GameProductStore';
-import { GameProduct } from '../models/GameProduct';
-import { GameProductFormData } from '../models/GameProductFormData';
+import { ActionContext } from "vuex";
+import { GameProductStore } from "../models/GameProductStore";
+import { GameProduct } from "../models/GameProduct";
+import { GameProductFormData } from "../models/GameProductFormData";
 
 export default {
   namespaced: true,
   state: {
     lastFetch: null,
-    gameProductList: [
-      {
-        coverUrl: '',
-        description: 'An amazing game',
-        id: 'g1',
-        imageUrl: '',
-        name: 'GameFinder',
-        price: 59.99,
-        type: 'GAME',
-      },
-    ],
+    gameProductList: [],
   },
   mutations: {
     registerGameProduct(state: GameProductStore, payload: any) {
@@ -33,17 +23,37 @@ export default {
   actions: {
     async saveGameProduct(context: ActionContext<GameProductStore, GameProductStore>, payload: GameProductFormData) {
       const token = context.rootGetters.token;
-      let requestUrl = `https://vue-http-demo-4f7fe-default-rtdb.europe-west1.firebasedatabase.app/gameProductList.json?auth=${token}`;
-      let requestMethod = 'POST';
+      let requestUrl = `https://n-shop-b6c92-default-rtdb.europe-west1.firebasedatabase.app/gameProductList.json?auth=${token}`;
+      let requestMethod = "POST";
 
       if (payload.id) {
-        requestUrl = `https://vue-http-demo-4f7fe-default-rtdb.europe-west1.firebasedatabase.app/gameProductList/${payload.id}.json?auth=${token}`;
-        requestMethod = 'PUT';
+        requestUrl = `https://n-shop-b6c92-default-rtdb.europe-west1.firebasedatabase.app/gameProductList/${payload.id}.json?auth=${token}`;
+        requestMethod = "PUT";
       }
 
       const response = await fetch(requestUrl, {
         method: requestMethod,
         body: JSON.stringify(payload),
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        //... error
+      }
+
+      console.log(responseData);
+
+      // context.commit('registerGameProduct', payload);
+    },
+
+    async deleteGameProduct(context: ActionContext<GameProductStore, GameProductStore>, payload: string) {
+      const token = context.rootGetters.token;
+      const requestUrl = `https://n-shop-b6c92-default-rtdb.europe-west1.firebasedatabase.app/gameProductList/${payload}.json?auth=${token}`;
+      const requestMethod = "DELETE";
+
+      const response = await fetch(requestUrl, {
+        method: requestMethod,
       });
 
       const responseData = await response.json();
@@ -65,7 +75,7 @@ export default {
       const responseData = await response.json();
 
       if (!response.ok) {
-        const error = new Error(responseData.message || 'Failed to fetch, try again later!');
+        const error = new Error(responseData.message || "Failed to fetch, try again later!");
         throw error;
       }
 
@@ -86,8 +96,8 @@ export default {
         gameProductList.push(gameProduct);
       }
 
-      context.commit('setGameProductList', gameProductList);
-      context.commit('setFetchTimestamp');
+      context.commit("setGameProductList", gameProductList);
+      context.commit("setFetchTimestamp");
     },
   },
   getters: {
