@@ -5,7 +5,8 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-end">
-        <router-link class="navbar-item" :to="{ name: 'userAuth' }">
+        <router-link v-if="isLogged" class="navbar-item" :to="{ name: 'adminProductList' }"> Products </router-link>
+        <router-link v-else class="navbar-item" :to="{ name: 'userAuth' }">
           <span class="icon"> <i class="fas fa-user"></i></span>
         </router-link>
         <!-- <router-link class="navbar-item" :to="{ name: 'cart' }">
@@ -15,6 +16,13 @@
     </div>
   </nav>
 </template>
+
+<script lang="ts" setup>
+import store from "@/store";
+import { computed } from "vue";
+
+const isLogged = computed<boolean>(() => store.getters["isAuthenticated"]);
+</script>
 
 <style scoped lang="scss">
 .navbar,

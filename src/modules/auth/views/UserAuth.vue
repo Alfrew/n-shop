@@ -39,20 +39,20 @@ const submitButtonCaption = computed(() => {
     return "Signup";
   }
 });
-const switchButtonCaption = computed(() => {
-  if (mode.value === "login") {
-    return "Signup instead";
-  } else {
-    return "Login instead";
-  }
-});
-function switchAuthMode() {
-  if (mode.value === "login") {
-    mode.value = "signup";
-  } else {
-    mode.value = "login";
-  }
-}
+// const switchButtonCaption = computed(() => {
+//   if (mode.value === "login") {
+//     return "Signup instead";
+//   } else {
+//     return "Login instead";
+//   }
+// });
+// function switchAuthMode() {
+//   if (mode.value === "login") {
+//     mode.value = "signup";
+//   } else {
+//     mode.value = "login";
+//   }
+// }
 
 const formValidity: AuthForm = { email: false, password: false };
 function updateValidity(controlName: keyof AuthForm, value: boolean) {
@@ -72,7 +72,6 @@ const controlMail = ref<InputControl>({ validators: { email: true, required: tru
 const inputPassword = ref("");
 const controlPassword = ref<InputControl>({ validators: { password: true, minLength: 8, required: true } });
 function submitForm() {
-  console.warn(inputMail.value);
   if (isFormValid()) {
     const formData: AuthFormData = {
       email: inputMail.value,
@@ -106,6 +105,6 @@ function handleError() {
 
 const router = useRouter();
 function changePageAfterAuthenticate() {
-  router.replace({ name: "store" });
+  router.replace({ name: "productList" });
 }
 </script>
