@@ -11,8 +11,8 @@
     </header>
     <div class="card-footer">
       <router-link :to="productGameLink" class="card-footer-item">Details</router-link>
-      <button class="card-footer-item">
-        <span class="icon has-text-primary"><i class="fa fa-cart-plus" aria-hidden="true"></i> </span>
+      <button class="card-footer-item hover-scale" @click="addToCart(productGame)">
+        <span class="icon has-text-primary"><i class="fa fa-cart-plus" aria-hidden="true"></i></span>
       </button>
     </div>
   </div>
@@ -21,6 +21,7 @@
 <script setup lang="ts">
 import { PropType, computed, toRefs } from "vue";
 import { GameProduct } from "../models/GameProduct";
+import { useStore } from "vuex";
 
 const props = defineProps({ productGame: { type: Object as PropType<GameProduct>, required: true } });
 const { productGame } = toRefs(props);
@@ -28,6 +29,11 @@ const { productGame } = toRefs(props);
 const productGameLink = computed(() => {
   return { name: "productDetail", params: { id: productGame.value.id } };
 });
+
+const store = useStore();
+function addToCart(gameProduct: GameProduct) {
+  store.dispatch("cart/addItemToCart", gameProduct);
+}
 </script>
 
 <style lang="scss" scoped>

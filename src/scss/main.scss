@@ -7,3 +7,11 @@
 .empty-p {
   min-height: 1.5em;
 }
+
+.hover-scale {
+  transition: transform 250ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.3);
+  }
+}
