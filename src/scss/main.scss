@@ -4,6 +4,11 @@
 @import "~bulma";
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
+.page-wrapper {
+  max-height: calc(100svh - 124px);
+  overflow: hidden;
+}
+
 .empty-p {
   min-height: 1.5em;
 }

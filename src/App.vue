@@ -28,9 +28,4 @@ onMounted(() => {
 .router-wrapper {
   margin: 48px 24px 24px;
 }
-
-.page-wrapper {
-  max-height: calc(100svh - 124px);
-  overflow: hidden;
-}
 </style>
