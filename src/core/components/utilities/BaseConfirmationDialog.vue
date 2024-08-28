@@ -62,7 +62,7 @@ function confirm() {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .modal {
   pointer-events: none;
   .modal-card,

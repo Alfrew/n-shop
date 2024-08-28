@@ -49,7 +49,7 @@ function emitIconAction(iconName: string, itemId: string) {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .table-wrapper {
   overflow: scroll;
   position: relative;

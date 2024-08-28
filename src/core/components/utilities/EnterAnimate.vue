@@ -35,7 +35,7 @@ onMounted(() => {
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 /* Fade animation */
 .fade {
   opacity: 0;

@@ -24,7 +24,7 @@ import { computed } from "vue";
 const isLogged = computed<boolean>(() => store.getters["isAuthenticated"]);
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .navbar,
 .navbar-end {
   display: flex;

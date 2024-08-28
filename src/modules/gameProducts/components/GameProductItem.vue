@@ -30,7 +30,7 @@ const productGameLink = computed(() => {
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "../../../scss/variables.scss";
 .card {
   height: 100%;
