@@ -6,7 +6,14 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from "vue";
 import TheHeader from "./core/components/layout/TheHeader.vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+onMounted(() => {
+  store.dispatch("cart/getCartStorage");
+});
 </script>
 
 <style lang="scss">

@@ -22,11 +22,17 @@ export default {
       const itemExistInCart = productIdx !== -1;
       if (itemExistInCart) {
         cart[productIdx].quantity += 1;
+        //*
+        if (payload.inStock && payload.inStock < cart[productIdx].quantity) {
+          cart[productIdx].quantity = payload.inStock;
+        }
+        //*
       } else {
         const newCartItem: CartGameProduct = { ...payload, quantity: 1 };
         cart.push(newCartItem);
       }
 
+      localStorage.setItem("cart", JSON.stringify(cart));
       context.commit("updateCart", cart);
     },
     removeItemFromCart(context: ActionContext<CartStore, CartStore>, payload: string) {
@@ -36,6 +42,7 @@ export default {
       });
       cart.splice(productIdx, 1);
 
+      localStorage.setItem("cart", JSON.stringify(cart));
       context.commit("updateCart", cart);
     },
     reduceQuantityForItem(context: ActionContext<CartStore, CartStore>, payload: string) {
@@ -45,7 +52,16 @@ export default {
       });
       cart[productIdx].quantity -= 1;
 
+      localStorage.setItem("cart", JSON.stringify(cart));
       context.commit("updateCart", cart);
+    },
+    getCartStorage(context: ActionContext<CartStore, CartStore>) {
+      const jsonCart = localStorage.getItem("cart");
+
+      if (jsonCart) {
+        const cart = JSON.parse(jsonCart);
+        context.commit("updateCart", cart);
+      }
     },
   },
   getters: {
