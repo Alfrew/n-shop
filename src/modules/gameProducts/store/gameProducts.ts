@@ -10,10 +10,7 @@ export default {
     gameProductList: [],
   },
   mutations: {
-    registerGameProduct(state: GameProductStore, payload: any) {
-      state.gameProductList.push(payload);
-    },
-    setGameProductList(state: GameProductStore, payload: any) {
+    setGameProductList(state: GameProductStore, payload: GameProduct[]) {
       state.gameProductList = payload;
     },
     setFetchTimestamp(state: GameProductStore) {
@@ -43,8 +40,6 @@ export default {
       }
 
       console.log(responseData);
-
-      // context.commit('registerGameProduct', payload);
     },
 
     async deleteGameProduct(context: ActionContext<GameProductStore, GameProductStore>, payload: string) {
@@ -63,8 +58,6 @@ export default {
       }
 
       console.log(responseData);
-
-      // context.commit('registerGameProduct', payload);
     },
 
     async loadGameProductList(context: ActionContext<GameProductStore, GameProductStore>, payload: any) {

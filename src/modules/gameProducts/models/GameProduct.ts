@@ -9,4 +9,4 @@ export interface GameProduct {
   type: GameProductType;
 }
 
-export type GameProductType = 'DLC' | 'GAME' | 'BUNDLE';
+export type GameProductType = "DLC" | "GAME" | "BUNDLE";
