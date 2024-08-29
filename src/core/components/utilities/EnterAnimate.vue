@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, toRefs } from "vue";
 import { enterAnimationClasses } from "./EnterAnimateUtils";
 
 const props = defineProps({
@@ -22,6 +22,8 @@ const props = defineProps({
     },
   },
 });
+
+const { animationType } = toRefs(props);
 
 const target = ref<Element>();
 const animate = ref<boolean>(false);
