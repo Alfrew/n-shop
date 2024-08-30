@@ -13,17 +13,21 @@
 <script setup lang="ts">
 import { computed, toRefs } from "vue";
 
-let quantity = defineModel<number>({ required: true });
+const emit = defineEmits(["increase", "decrease"]);
 
-const props = defineProps({ quantityMaxLimit: { type: Number, required: false }, quantityMinLimit: { type: Number, required: false, default: 1 } });
-const { quantityMaxLimit, quantityMinLimit } = toRefs(props);
+const props = defineProps({
+  quantity: { type: Number, required: true },
+  quantityMaxLimit: { type: Number, required: false },
+  quantityMinLimit: { type: Number, required: false, default: 1 },
+});
+const { quantity, quantityMaxLimit, quantityMinLimit } = toRefs(props);
 
 const hasReachedMinLimit = computed(() => {
   return quantityMinLimit.value >= quantity.value;
 });
 function reduceQuantity() {
   if (!hasReachedMinLimit.value) {
-    quantity.value--;
+    emit("decrease");
   }
 }
 
@@ -36,7 +40,7 @@ const hasReachedMaxLimit = computed(() => {
 });
 function increaseQuantity() {
   if (!hasReachedMaxLimit.value) {
-    quantity.value++;
+    emit("increase");
   }
 }
 </script>
