@@ -1,7 +1,7 @@
 <template>
   <button v-if="!link" class="button" :disabled="isDisabled" :class="[mode, color, { 'is-loading': isLoading }]">
     <span v-if="icon" class="icon">
-      <i class="fas" :class="icon"></i>
+      <i class="fa" :class="icon"></i>
     </span>
     <span><slot></slot></span>
   </button>
