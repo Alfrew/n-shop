@@ -1,8 +1,8 @@
 <template>
   <div class="cart-list-item is-flex is-justify-content-space-between py-5">
-    <div class="is-flex is-flex-grow-5">
-      <router-link :to="productGameLink" class="item-cover image is-16by9 mr-5">
-        <figure class="image is-16by9">
+    <div class="is-flex is-flex-grow-5 mr-3">
+      <router-link :to="productGameLink" class="mr-5">
+        <figure class="item-cover image is-16by9">
           <img :src="cartProduct.coverUrl" alt="Game cover" />
         </figure>
       </router-link>
@@ -63,13 +63,13 @@ function removeItem(id: string) {
 @import "../../../scss/variables.scss";
 
 .cart-list-item {
-  height: 154px;
   width: 100%;
 
   .item-cover {
     border-radius: 16px;
     border: 1px solid $lightGrayColor;
     overflow: hidden;
+    min-width: 200px;
   }
 
   .title {
