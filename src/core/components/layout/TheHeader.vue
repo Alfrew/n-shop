@@ -1,17 +1,21 @@
 <template>
   <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <router-link class="navbar-item" to="/"> FinGames </router-link>
+      <router-link class="navbar-item" title="Products page" to="/"> FinGames </router-link>
     </div>
     <div class="navbar-menu">
       <div class="navbar-end">
-        <router-link v-if="isLogged" class="navbar-item" :to="{ name: 'adminProductList' }"> Products </router-link>
-        <router-link v-else class="navbar-item" :to="{ name: 'userAuth' }">
-          <span class="icon"> <i class="fas fa-user"></i></span>
+        <router-link v-if="isLogged" class="navbar-item" title="Admin page" :to="{ name: 'adminProductList' }">
+          <span class="icon"><i class="fas fa-list"></i></span>
         </router-link>
-        <router-link class="navbar-item" :to="{ name: 'cart' }">
+
+        <router-link v-else class="navbar-item" title="Login page" :to="{ name: 'userAuth' }">
+          <span class="icon"><i class="fas fa-user"></i></span>
+        </router-link>
+
+        <router-link class="navbar-item" title="Shopping cart" :to="{ name: 'cart' }">
           <base-badge :badge-value="cartQuantity">
-            <span class="icon"> <i class="fas fa-shopping-cart"></i></span>
+            <span class="icon"><i class="fas fa-shopping-cart"></i></span>
           </base-badge>
         </router-link>
       </div>
