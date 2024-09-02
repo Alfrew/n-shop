@@ -26,6 +26,7 @@ onMounted(() => {
 }
 
 .router-wrapper {
-  margin: 48px 24px 24px;
+  margin: 48px auto 24px;
+  max-width: 1080px;
 }
 </style>
