@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { useStore } from "vuex";
 import GameProductItem from "../components/GameProductItem.vue";
-import EnterAnimate from "@/core/components/utilities/EnterAnimate.vue";
+import EnterAnimate from "@/core/components/animations/EnterAnimate.vue";
 import { GameProduct } from "../models/GameProduct";
 import { computed, onMounted, ref } from "vue";
 
