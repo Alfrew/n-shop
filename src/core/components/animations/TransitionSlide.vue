@@ -1,5 +1,5 @@
 <template>
-  <transition-group v-if="isForList" name="slide" mode="out-in">
+  <transition-group v-if="isForList" name="slide">
     <slot></slot>
   </transition-group>
   <transition v-else name="slide" mode="out-in">

@@ -2,8 +2,8 @@
   <div class="cart-list-item is-flex is-justify-content-space-between py-5">
     <div class="is-flex is-flex-grow-5 mr-3">
       <router-link :to="productGameLink" class="mr-5">
-        <figure class="item-cover image is-16by9">
-          <img :src="cartProduct.coverUrl" alt="Game cover" />
+        <figure class="item-cover image is-16by9 animated-placeholder-bg">
+          <div v-if="cartProduct.coverUrl" class="has-ratio cover" :style="'background-image: url(' + cartProduct.coverUrl + ')'"></div>
         </figure>
       </router-link>
       <div class="has-text-left">

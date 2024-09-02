@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <router-link :to="productGameLink" class="card-image">
-      <figure class="image">
-        <img :src="productGame.imageUrl" alt="Game cover" />
+      <figure class="image is-1by1 animated-placeholder-bg">
+        <div v-if="productGame.imageUrl" class="has-ratio cover" :style="'background-image: url(' + productGame.imageUrl + ')'"></div>
       </figure>
     </router-link>
     <header class="card-content">
@@ -45,6 +45,9 @@ function addToCart(gameProduct: GameProduct) {
 
   .card-image {
     transition: transform 250ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+    overflow: hidden;
   }
 
   .card-content {
