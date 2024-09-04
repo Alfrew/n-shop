@@ -97,6 +97,9 @@ export default {
     gameProductList(state: GameProductStore) {
       return state.gameProductList;
     },
+    gameProductById: (state: GameProductStore) => (productId: string) => {
+      return state.gameProductList.find((product) => product.id == productId);
+    },
     shouldUpdate(state: GameProductStore) {
       const lastFetch = state.lastFetch;
       if (!lastFetch) {
