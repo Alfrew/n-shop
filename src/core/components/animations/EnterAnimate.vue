@@ -1,7 +1,7 @@
 <template>
-  <div style="height: 100%" ref="target">
+  <div :class="fullHeight" ref="target">
     <transition :name="animationType">
-      <div style="height: 100%" :class="animationType" :data-isVisible="animate">
+      <div class="is-full-height" :class="animationType" :data-isVisible="animate">
         <slot></slot>
       </div>
     </transition>
@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, toRefs } from "vue";
+import { computed, onMounted, ref, toRefs } from "vue";
 import { enterAnimationClasses } from "./EnterAnimateUtils";
 
 const props = defineProps({
@@ -21,15 +21,23 @@ const props = defineProps({
       return enterAnimationClasses.includes(value);
     },
   },
+  hasFullHeight: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const { animationType } = toRefs(props);
+const { animationType, hasFullHeight } = toRefs(props);
 
 const target = ref<Element>();
 const animate = ref<boolean>(false);
 
 const observer = new IntersectionObserver(([entry]) => {
   animate.value = entry.isIntersecting;
+});
+
+const fullHeight = computed(() => {
+  return hasFullHeight.value ? "is-full-height" : "";
 });
 
 onMounted(() => {

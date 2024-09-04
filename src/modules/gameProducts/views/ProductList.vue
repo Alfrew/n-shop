@@ -1,7 +1,7 @@
 <template>
   <ul class="grid is-col-min-10 is-column-gap-4 is-row-gap-8">
     <li v-for="productGame in productGames" :key="productGame.id" class="cell">
-      <enter-animate animationType="special-fade">
+      <enter-animate animationType="special-fade" :has-full-height="true">
         <game-product-item :product-game="productGame"></game-product-item>
       </enter-animate>
     </li>
