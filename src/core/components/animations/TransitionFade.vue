@@ -1,5 +1,5 @@
 <template>
-  <transition-group v-if="isForList" name="fade" mode="out-in">
+  <transition-group v-if="isForList" name="fade">
     <slot></slot>
   </transition-group>
   <transition v-else name="fade" mode="out-in">
@@ -11,7 +11,11 @@
 const props = defineProps({ isForList: { type: Boolean, default: false, required: false } });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+.fade-move {
+  transition: transform 1s;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;

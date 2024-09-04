@@ -11,7 +11,7 @@
 const props = defineProps({ isForList: { type: Boolean, default: false, required: false } });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .slide-enter {
   opacity: 0;
 }

@@ -4,11 +4,11 @@
     <transition-fade>
       <div class="grid is-column-gap-6" v-if="cartProducts.length > 0">
         <ul class="cell is-col-span-2">
-          <transition name="fade">
+          <transition-fade>
             <li v-if="cartTotal > 80">
               <base-notification color="is-success" :is-light="true">Congratulations you've qualified for free shipping!</base-notification>
             </li>
-          </transition>
+          </transition-fade>
           <transition-slide :is-for-list="true">
             <li class="cart-item" v-for="cartProduct of cartProducts" :key="cartProduct.id">
               <cart-list-item :cart-product="cartProduct"></cart-list-item>
