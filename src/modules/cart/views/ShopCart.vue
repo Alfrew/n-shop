@@ -21,10 +21,10 @@
         </div>
       </div>
 
-      <base-card v-else>
+      <base-box v-else>
         <p class="title">No item in your cart</p>
         <p>Maybe check something <router-link :to="{ name: 'productList' }">here</router-link></p>
-      </base-card>
+      </base-box>
     </transition-fade>
   </div>
 </template>

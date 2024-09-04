@@ -8,7 +8,7 @@
     </base-dialog>
 
     <h1 class="title has-text-left">Login page</h1>
-    <base-card>
+    <base-box>
       <form @submit.prevent="submitForm">
         <base-input-mail v-model="inputMail" :input-control="controlMail" @is-valid="updateValidity('email', $event)"></base-input-mail>
         <base-input-password v-model="inputPassword" :input-control="controlPassword" @is-valid="updateValidity('password', $event)"></base-input-password>
@@ -19,7 +19,7 @@
           </base-button> -->
         </div>
       </form>
-    </base-card>
+    </base-box>
   </div>
 </template>
 
