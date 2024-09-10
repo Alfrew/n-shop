@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { computed, toRefs } from "vue";
-import { bulmaColorClasses } from "./BaseNotificationUtils";
+import { bulmaNotificationColorClasses } from "./BaseNotificationUtils";
 
 const props = defineProps({
   color: {
@@ -14,7 +14,7 @@ const props = defineProps({
     required: false,
     default: "",
     validator(value: string) {
-      return bulmaColorClasses.includes(value);
+      return bulmaNotificationColorClasses.includes(value);
     },
   },
   isLight: {

@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { toRefs } from "vue";
-import { bulmaColorClasses, bulmaModeClasses } from "./BaseButtonUtils";
+import { bulmaButtonColorClasses, bulmaButtonModeClasses } from "./BaseButtonUtils";
 
 const props = defineProps({
   mode: {
@@ -20,7 +20,7 @@ const props = defineProps({
     required: false,
     default: "",
     validator(value: string) {
-      return bulmaModeClasses.includes(value);
+      return bulmaButtonModeClasses.includes(value);
     },
   },
   color: {
@@ -28,7 +28,7 @@ const props = defineProps({
     required: false,
     default: "",
     validator(value: string) {
-      return bulmaColorClasses.includes(value);
+      return bulmaButtonColorClasses.includes(value);
     },
   },
   icon: {
