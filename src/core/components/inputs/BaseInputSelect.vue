@@ -1,9 +1,13 @@
 <template>
   <div class="field">
-    <label class="label" for="select">{{ inputSelectControl.controlLabel ?? "Select an option" }}</label>
+    <label class="label" :for="inputSelectControl.id">{{ inputSelectControl.controlLabel ?? "Select an option" }}</label>
     <div class="control">
       <div class="select is-fullwidth" :class="{ 'is-danger': !isValid && isTouched }">
-        <select id="select" v-model.trim="controlValue" @focus.once="testControlValidity(controlValue, inputSelectControl.validators)" @blur.once="wasTouched()">
+        <select
+          :id="inputSelectControl.id"
+          v-model.trim="controlValue"
+          @focus.once="testControlValidity(controlValue, inputSelectControl.validators)"
+          @blur.once="wasTouched()">
           <option v-for="option in inputSelectControl.optionList" :key="option.value" :value="option.value">{{ option.label }}</option>
         </select>
       </div>

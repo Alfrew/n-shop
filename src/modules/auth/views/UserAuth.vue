@@ -70,9 +70,9 @@ function isFormValid() {
 }
 
 const inputMail = ref("");
-const controlMail = ref<InputControl>({ validators: { email: true, required: true } });
+const controlMail = ref<InputControl>({ id: "mail", validators: { email: true, required: true } });
 const inputPassword = ref("");
-const controlPassword = ref<InputControl>({ validators: { password: true, minLength: 8, required: true } });
+const controlPassword = ref<InputControl>({ id: "password", validators: { password: true, minLength: 8, required: true } });
 function submitForm() {
   if (isFormValid()) {
     const formData: AuthFormData = {

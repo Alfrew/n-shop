@@ -1,5 +1,6 @@
 export interface InputControl {
   controlLabel?: string;
+  id: string;
   validators: ControlValidators;
 }
 

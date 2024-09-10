@@ -1,12 +1,12 @@
 <template>
   <div class="field">
-    <label class="label" for="password">{{ inputControl.controlLabel ?? "Password" }}</label>
+    <label class="label" :for="inputControl.id">{{ inputControl.controlLabel ?? "Password" }}</label>
     <div class="control">
       <input
         class="input"
         :class="{ 'is-danger': !isValid && isTouched }"
         type="password"
-        id="password"
+        :id="inputControl.id"
         v-model.trim="controlValue"
         @focus.once="testControlValidity(controlValue, inputControl.validators)"
         @blur.once="wasTouched()" />

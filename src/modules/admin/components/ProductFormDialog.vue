@@ -101,13 +101,17 @@ const formValidity = reactive<ProductForm>({
   type: true,
 });
 function updateFormValidity(isValid: boolean) {
-  formValidity.coverUrl = isValid;
-  formValidity.description = isValid;
-  formValidity.imageUrl = isValid;
-  formValidity.inStock = isValid;
-  formValidity.name = isValid;
-  formValidity.price = isValid;
-  formValidity.type = isValid;
+  for (const prop in formValidity) {
+    formValidity[prop as keyof ProductForm] = isValid;
+  }
+  // formValidity.coverUrl = isValid;
+  // formValidity.description = isValid;
+  // formValidity.imageUrl = isValid;
+  // formValidity.inStock = isValid;
+  // formValidity.name = isValid;
+  // formValidity.price = isValid;
+  // formValidity.releaseDate = isValid;
+  // formValidity.type = isValid;
 }
 function updateControlValidity(controlName: keyof ProductForm, value: boolean) {
   formValidity[controlName] = value;
@@ -122,18 +126,19 @@ const isFormValid = computed(function () {
 });
 
 const inputName = ref("");
-const nameControl: InputControl = { controlLabel: "Product Name", validators: { required: true } };
+const nameControl: InputControl = { controlLabel: "Product Name", id: "productName", validators: { required: true } };
 const inputImageUrl = ref("");
-const imageUrlControl: InputControl = { controlLabel: "Product Image Url", validators: { required: true } };
+const imageUrlControl: InputControl = { controlLabel: "Product Image Url", id: "imageUrl", validators: { required: true } };
 const inputCoverUrl = ref("");
-const coverUrlControl: InputControl = { controlLabel: "Product Cover Url", validators: { required: true } };
+const coverUrlControl: InputControl = { controlLabel: "Product Cover Url", id: "coverUrl", validators: { required: true } };
 const inputDescription = ref("");
-const descriptionControl: TextareaControl = { controlLabel: "Product Description", rows: 10, validators: { required: true, minLength: 150 } };
+const descriptionControl: TextareaControl = { controlLabel: "Product Description", id: "description", rows: 10, validators: { required: true, minLength: 150 } };
 const inputPrice = ref<number>(0);
-const priceControl: InputControl = { controlLabel: "Product Price", validators: { required: true, minValue: 0 } };
+const priceControl: InputControl = { controlLabel: "Product Price", id: "price", validators: { required: true, minValue: 0 } };
 const inputType = ref<GameProductType>("GAME");
 const typeControl: SelectControl = {
   controlLabel: "Product Type",
+  id: "type",
   validators: { required: true },
   optionList: [
     { value: "GAME", label: "Game" },
@@ -142,7 +147,7 @@ const typeControl: SelectControl = {
   ],
 };
 const inputInStock = ref(0);
-const stockControl: InputControl = { controlLabel: "Product Stock", validators: { required: true, minValue: 0, maxValue: 25 } };
+const stockControl: InputControl = { controlLabel: "Product Stock", id: "stock", validators: { required: true, minValue: 0, maxValue: 25 } };
 function submitForm() {
   if (isFormValid.value) {
     const formData: GameProductFormData = {
