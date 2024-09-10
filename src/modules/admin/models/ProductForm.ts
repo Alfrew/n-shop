@@ -5,5 +5,6 @@ export interface ProductForm {
   inStock: boolean;
   name: boolean;
   price: boolean;
+  releaseDate: boolean;
   type: boolean;
 }

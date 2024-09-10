@@ -1,4 +1,4 @@
-import { GameProductType } from './GameProduct';
+import { GameProductType } from "./GameProduct";
 
 export interface GameProductFormData {
   coverUrl: string;
@@ -8,5 +8,6 @@ export interface GameProductFormData {
   inStock?: number;
   name: string;
   price: number;
+  releaseDate: string;
   type: GameProductType;
 }

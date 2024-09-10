@@ -6,6 +6,7 @@ export interface GameProduct {
   inStock?: number;
   name: string;
   price: number;
+  releaseDate: string;
   type: GameProductType;
 }
 

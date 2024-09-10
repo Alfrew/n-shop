@@ -10,6 +10,11 @@
             <base-input-select v-model="inputType" :input-select-control="typeControl" @is-valid="updateControlValidity('type', $event)"></base-input-select>
           </div>
           <div class="column">
+            <base-input-date v-model="inputDate" :input-control="dateControl" @is-valid="updateControlValidity('releaseDate', $event)"></base-input-date>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
             <base-input-number v-model="inputPrice" :input-control="priceControl" @is-valid="updateControlValidity('price', $event)"></base-input-number>
           </div>
           <div class="column">
@@ -37,18 +42,13 @@ Extra:
 -Name/id
 -->
 
-<!-- DA FARE
-Next:
--Pagina prodotto
--Carrello
--->
-
 <script setup lang="ts">
 import BaseDialog from "@/core/components/containers/BaseDialog.vue";
 import BaseInputNumber from "@/core/components/inputs/BaseInputNumber.vue";
 import BaseInputSelect from "@/core/components/inputs/BaseInputSelect.vue";
 import BaseInputText from "@/core/components/inputs/BaseInputText.vue";
 import BaseInputTextarea from "@/core/components/inputs/BaseInputTextarea.vue";
+import BaseInputDate from "@/core/components/inputs/BaseInputDate.vue";
 
 import { GameProduct, GameProductType } from "@/modules/gameProducts/models/GameProduct";
 import { GameProductFormData } from "@/modules/gameProducts/models/GameProductFormData";
@@ -80,10 +80,12 @@ watch(show, function () {
 
 function patchFormValue() {
   if (!!product?.value) {
-    inputName.value = product.value.name;
-    inputImageUrl.value = product.value.imageUrl;
     inputCoverUrl.value = product.value.coverUrl;
+    inputDate.value = product.value.releaseDate;
     inputDescription.value = product.value.description;
+    inputImageUrl.value = product.value.imageUrl;
+    inputInStock.value = product.value.inStock ?? 0;
+    inputName.value = product.value.name;
     inputPrice.value = product.value.price;
     inputType.value = product.value.type;
 
@@ -98,6 +100,7 @@ const formValidity = reactive<ProductForm>({
   inStock: true,
   name: false,
   price: true,
+  releaseDate: true,
   type: true,
 });
 function updateFormValidity(isValid: boolean) {
@@ -135,6 +138,8 @@ const inputDescription = ref("");
 const descriptionControl: TextareaControl = { controlLabel: "Product Description", id: "description", rows: 10, validators: { required: true, minLength: 150 } };
 const inputPrice = ref<number>(0);
 const priceControl: InputControl = { controlLabel: "Product Price", id: "price", validators: { required: true, minValue: 0 } };
+const inputDate = ref<string>(new Date().toISOString().split("T")[0]);
+const dateControl: InputControl = { controlLabel: "Product Release Date", id: "releaseDate", validators: { required: true, minValue: 0 } };
 const inputType = ref<GameProductType>("GAME");
 const typeControl: SelectControl = {
   controlLabel: "Product Type",
@@ -157,6 +162,7 @@ function submitForm() {
       inStock: inputInStock.value,
       name: inputName.value,
       price: inputPrice.value,
+      releaseDate: inputDate.value,
       type: inputType.value,
     };
     sendRequest(formData);
@@ -169,6 +175,7 @@ function resetForm() {
   inputDescription.value = "";
   inputPrice.value = 0;
   inputInStock.value = 0;
+  inputDate.value = new Date().toISOString().split("T")[0];
   inputType.value = "GAME";
 
   updateFormValidity(false);
@@ -213,6 +220,7 @@ function precompileForm() {
 Whether you’re summoning aliens or snapping colorful photos with your phone’s camera, mix up your next get-together with the Everybody 1-2-Switch! game. Grab some Joy-Con™ controllers or a whole bunch of smart devices for team-based games that are easy to set up.`;
   inputPrice.value = 29.99;
   inputInStock.value = 10;
+  inputDate.value = "2023-06-30";
   inputType.value = "GAME";
 
   updateFormValidity(true);

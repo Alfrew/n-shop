@@ -76,14 +76,15 @@ export default {
 
       for (const key in responseData) {
         const gameProduct: GameProduct = {
-          id: key,
           coverUrl: responseData[key].coverUrl,
           description: responseData[key].description,
+          id: key,
           imageUrl: responseData[key].imageUrl,
+          inStock: responseData[key].inStock ?? null,
           name: responseData[key].name,
           price: responseData[key].price,
+          releaseDate: responseData[key].releaseDate,
           type: responseData[key].type,
-          inStock: responseData[key].inStock ?? null,
         };
 
         gameProductList.push(gameProduct);
