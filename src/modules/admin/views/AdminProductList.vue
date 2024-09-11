@@ -26,6 +26,7 @@ const columnList: Column[] = [
   { header: "Name", dataKey: "name", textAlign: "has-text-left" },
   { header: "Price", dataKey: "price", prefix: "$" },
   { header: "In Stock", dataKey: "inStock" },
+  { header: "Release Date", dataKey: "releaseDate", type: "date" },
   { header: "Type", dataKey: "type" },
   {
     header: "Actions",

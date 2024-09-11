@@ -16,7 +16,8 @@ export interface Column {
   url?: string;
   textAlign?: BulmaAlignClasses;
   prefix?: string;
+  suffix?: string;
 }
 
-type ColumnType = "link" | "action";
+type ColumnType = "link" | "action" | "date";
 type BulmaAlignClasses = "has-text-left" | "has-text-right" | "has-text-centered" | "has-text-justified";

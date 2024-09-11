@@ -11,8 +11,9 @@
       <div class="cell is-col-span-2 has-text-left">
         <enter-animate animation-type="special-fade">
           <h2 class="title" :title="productGame.name">{{ productGame.name }}</h2>
+          <p class="subtitle is-6" :title="productGame.releaseDate">{{ formattedDate }}</p>
         </enter-animate>
-        <div class="is-flex is-justify-content-space-between my-5">
+        <div class="is-flex is-justify-content-space-between is-align-items-center my-5">
           <enter-animate animation-type="special-fade">
             <p class="is-size-4 has-text-weight-medium">${{ productGame.price }}</p>
           </enter-animate>
@@ -32,12 +33,18 @@ import EnterAnimate from "@/core/components/animations/EnterAnimate.vue";
 import { computed, toRefs } from "vue";
 import { useStore } from "vuex";
 import { GameProduct } from "../models/GameProduct";
+import useDateParser from "@/core/hooks/dateParser";
 
 const props = defineProps({ id: { type: String, required: true } });
 const { id } = toRefs(props);
 
 const store = useStore();
 const productGame = computed<GameProduct>(() => store.getters["gameProducts/gameProductById"](id.value));
+
+const { formatDate } = useDateParser();
+const formattedDate = computed(() => {
+  return formatDate(productGame.value.releaseDate);
+});
 
 function addToCart(gameProduct: GameProduct) {
   store.dispatch("cart/addItemToCart", gameProduct);

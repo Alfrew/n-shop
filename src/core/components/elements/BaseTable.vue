@@ -14,6 +14,8 @@
           <td v-for="column in columnList" :key="column.dataKey" :class="column.textAlign ?? 'has-text-left'">
             <!-- LINK -->
             <router-link v-if="column.type == 'link'" :to="column.url">{{ item[column.dataKey] }}</router-link>
+            <!-- DATE -->
+            <span v-else-if="column.type == 'date'">{{ formatDate(item[column.dataKey]) }}</span>
             <!-- CTA -->
             <span v-else-if="column.type == 'action'">
               <span v-for="(icon, idx) in column.icons" :key="idx" class="icon">
@@ -22,8 +24,9 @@
             </span>
             <!-- DEFAULT -->
             <span v-else>
-              <span v-if="column.prefix">{{ column.prefix }}</span
-              >{{ item[column.dataKey] }}
+              <span v-if="column.prefix">{{ column.prefix }}</span>
+              {{ item[column.dataKey] }}
+              <span v-if="column.suffix">{{ column.suffix }}</span>
             </span>
           </td>
         </tr>
@@ -35,6 +38,7 @@
 <script setup lang="ts">
 import { PropType, toRefs } from "vue";
 import { Column, IconActionEvent } from "./BaseTableUtils";
+import useDateParser from "@/core/hooks/dateParser";
 
 const emit = defineEmits(["iconAction"]);
 const props = defineProps({ columnList: { type: Object as PropType<Column[]>, required: true }, dataSource: { type: Object as PropType<any[]>, required: true } });
@@ -47,6 +51,8 @@ function emitIconAction(iconName: string, itemId: string) {
   };
   emit("iconAction", iconEmitter);
 }
+
+const { formatDate } = useDateParser();
 </script>
 
 <style lang="scss" scoped>

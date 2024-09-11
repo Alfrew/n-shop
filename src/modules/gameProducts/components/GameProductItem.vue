@@ -6,8 +6,14 @@
       </figure>
     </router-link>
     <header class="card-content">
-      <router-link :to="productGameLink" class="title">{{ productGame.name }}</router-link>
-      <p class="subtitle">${{ productGame.price }}</p>
+      <div class="has-text-left">
+        <router-link :to="productGameLink" class="title is-4">{{ productGame.name }}</router-link>
+        <p class="subtitle is-7">{{ formattedDate }}</p>
+      </div>
+      <p class="is-flex is-justify-content-space-between is-align-items-center">
+        <b class="has-text-weight-bold is-size-5">${{ productGame.price }}</b>
+        <base-tag :color="productGameTagColor" :is-rounded="true" size="is-medium">{{ productGame.type }}</base-tag>
+      </p>
     </header>
     <div class="card-footer">
       <router-link :to="productGameLink" class="card-footer-item">Details</router-link>
@@ -19,15 +25,35 @@
 </template>
 
 <script setup lang="ts">
+import BaseTag from "@/core/components/elements/BaseTag.vue";
 import { PropType, computed, toRefs } from "vue";
 import { GameProduct } from "../models/GameProduct";
 import { useStore } from "vuex";
+import useDateParser from "@/core/hooks/dateParser";
 
 const props = defineProps({ productGame: { type: Object as PropType<GameProduct>, required: true } });
 const { productGame } = toRefs(props);
 
 const productGameLink = computed(() => {
   return { name: "productDetail", params: { id: productGame.value.id } };
+});
+
+const { formatDate } = useDateParser();
+const formattedDate = computed(() => {
+  return formatDate(productGame.value.releaseDate);
+});
+
+const productGameTagColor = computed(() => {
+  switch (productGame.value.type) {
+    case "DLC":
+      return "is-link";
+    case "GAME":
+      return "is-info";
+    case "BUNDLE":
+      return "is-warning";
+    default:
+      return "";
+  }
 });
 
 const store = useStore();
@@ -55,6 +81,8 @@ function addToCart(gameProduct: GameProduct) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-bottom: 12px;
+    gap: 32px;
   }
 
   .title {
