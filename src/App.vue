@@ -13,6 +13,7 @@ import { useStore } from "vuex";
 const store = useStore();
 onMounted(() => {
   store.dispatch("cart/getCartStorage");
+  store.dispatch("tryLogin");
 });
 </script>
 

@@ -1,6 +1,7 @@
-import { ActionContext } from 'vuex';
-import { AuthStore } from '../models/AuthStore';
-import { AuthFormData } from '../models/AuthFormData';
+import { ActionContext } from "vuex";
+import { AuthStore } from "../models/AuthStore";
+import { AuthFormData } from "../models/AuthFormData";
+import router from "@/router";
 
 let timer: any;
 
@@ -22,24 +23,24 @@ export default {
   },
   actions: {
     async login(context: ActionContext<AuthStore, AuthStore>, payload: AuthFormData) {
-      return context.dispatch('auth', {
+      return context.dispatch("auth", {
         ...payload,
-        mode: 'login',
+        mode: "login",
       });
     },
     async signup(context: ActionContext<AuthStore, AuthStore>, payload: AuthFormData) {
-      return context.dispatch('auth', {
+      return context.dispatch("auth", {
         ...payload,
-        mode: 'signup',
+        mode: "signup",
       });
     },
 
     async auth(context: ActionContext<AuthStore, AuthStore>, payload: AuthFormData) {
-      const API_KEY = 'AIzaSyCwClQf_tZvKk51wU6AoTpqgfjEuJQ8gAk';
+      const API_KEY = "AIzaSyCwClQf_tZvKk51wU6AoTpqgfjEuJQ8gAk";
       const mode = payload.mode;
       let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
 
-      if (mode === 'signup') {
+      if (mode === "signup") {
         url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
       }
       const userAuth = {
@@ -48,14 +49,14 @@ export default {
         returnSecureToken: true,
       };
       const response = await fetch(url, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(userAuth),
       });
 
       const responseData = await response.json();
 
       if (!response.ok) {
-        const error = new Error(responseData.message || 'Failed to authenticate');
+        const error = new Error(responseData.message || "Failed to authenticate");
         throw error;
       }
 
@@ -67,16 +68,16 @@ export default {
         userId: responseData.localId,
         tokenExpiration: expirationDate,
       };
-      localStorage.setItem('user', JSON.stringify(userResponse));
+      localStorage.setItem("user", JSON.stringify(userResponse));
 
       timer = setTimeout(() => {
-        context.dispatch('autoLogout');
+        context.dispatch("autoLogout");
       }, expiresIn);
 
-      context.commit('setUser', { ...userResponse, didAutoLogout: false });
+      context.commit("setUser", { ...userResponse, didAutoLogout: false });
     },
     tryLogin(context: ActionContext<AuthStore, AuthStore>) {
-      const userJson = localStorage.getItem('user');
+      const userJson = localStorage.getItem("user");
       if (!userJson) return;
 
       const user = JSON.parse(userJson);
@@ -88,27 +89,29 @@ export default {
       }
 
       timer = setTimeout(() => {
-        context.dispatch('autoLogout');
+        context.dispatch("autoLogout");
       }, expiresIn);
 
       if (user.token && user.userId) {
-        context.commit('setUser', { ...user, didAutoLogout: false });
+        context.commit("setUser", { ...user, didAutoLogout: false });
       }
     },
     logout(context: ActionContext<AuthStore, AuthStore>) {
-      localStorage.removeItem('user');
+      localStorage.removeItem("user");
 
       clearTimeout(timer);
 
-      context.commit('setUser', {
+      context.commit("setUser", {
         token: null,
         userId: null,
         didAutoLogout: false,
       });
+
+      router.push({ name: "userAuth" });
     },
     autoLogout(context: ActionContext<AuthStore, AuthStore>) {
-      context.dispatch('logout');
-      context.commit('setAutoLogout');
+      context.dispatch("logout");
+      context.commit("setAutoLogout");
     },
   },
   getters: {

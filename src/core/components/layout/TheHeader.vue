@@ -5,9 +5,14 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-end">
-        <router-link v-if="isLogged" class="navbar-item" title="Admin page" :to="{ name: 'adminProductList' }">
-          <span class="icon"><i class="fas fa-list"></i></span>
-        </router-link>
+        <template v-if="isLogged">
+          <router-link class="navbar-item" title="Admin page" :to="{ name: 'adminProductList' }">
+            <span class="icon"><i class="fas fa-list"></i></span>
+          </router-link>
+          <span class="navbar-link is-arrowless" title="Logout" @click="logout()">
+            <span class="icon"><i class="fas fa-right-from-bracket"></i></span>
+          </span>
+        </template>
 
         <router-link v-else class="navbar-item" title="Login page" :to="{ name: 'userAuth' }">
           <span class="icon"><i class="fas fa-user"></i></span>
@@ -31,6 +36,9 @@ import { useStore } from "vuex";
 const store = useStore();
 const isLogged = computed<boolean>(() => store.getters["isAuthenticated"]);
 const cartQuantity = computed<number>(() => store.getters["cart/cartQuantity"]);
+function logout() {
+  store.dispatch("logout");
+}
 </script>
 
 <style lang="scss" scoped>
