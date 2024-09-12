@@ -6,7 +6,7 @@
       </figure>
     </router-link>
     <header class="card-content">
-      <div class="has-text-left">
+      <div>
         <router-link :to="productGameLink" class="title is-4">{{ productGame.name }}</router-link>
         <p class="subtitle is-7">{{ formattedDate }}</p>
       </div>

@@ -22,12 +22,11 @@ onMounted(() => {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 
 .router-wrapper {
   margin: 48px auto 24px;
   max-width: 1080px;
+  padding: 0 24px;
 }
 </style>

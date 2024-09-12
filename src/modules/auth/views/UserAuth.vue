@@ -7,7 +7,7 @@
       <base-spinner></base-spinner>
     </base-dialog>
 
-    <h1 class="title has-text-left">Login page</h1>
+    <h1 class="title">Login page</h1>
     <base-box>
       <form @submit.prevent="submitForm">
         <base-input-mail v-model="inputMail" :input-control="controlMail" @is-valid="updateValidity('email', $event)"></base-input-mail>

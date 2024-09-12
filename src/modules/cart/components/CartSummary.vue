@@ -1,6 +1,6 @@
 <template>
-  <div class="p-6 has-background-light is-flex-grow-1 summary">
-    <h2 class="title">Order summary</h2>
+  <div class="summary py-6 px-4 has-background-light">
+    <h2 class="title has-text-centered">Order summary</h2>
     <div class="mb-3 has-border-bottom">
       <p class="is-flex is-justify-content-space-between">
         Item(s) subtotal <span>${{ cartTotal.toFixed(2) }}</span>
@@ -21,7 +21,7 @@
       </p>
     </div>
 
-    <base-button color="is-success" mode="is-outlined" class="is-uppercase">Go to Checkout</base-button>
+    <div class="buttons is-centered"><base-button color="is-success" mode="is-outlined" class="is-uppercase">Go to Checkout</base-button></div>
   </div>
 </template>
 

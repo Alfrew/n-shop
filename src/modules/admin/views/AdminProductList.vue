@@ -5,7 +5,7 @@
       :show="isConfirmDialogOpen"
       :message="'Are you sure to delete the selected item?'"
       @close="deleteElement($event)"></base-confirmation-dialog>
-    <h1 class="title has-text-left">Products admin page</h1>
+    <h1 class="title">Products admin page</h1>
     <div class="buttons is-justify-content-end">
       <base-button color="is-primary" icon="fa-plus" @click="openDialog()">Add new product</base-button>
     </div>

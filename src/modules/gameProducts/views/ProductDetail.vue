@@ -1,14 +1,14 @@
 <template>
   <base-box>
-    <div class="grid is-column-gap-6">
-      <div class="cell is-col-span-3">
+    <div class="columns is-gap-6">
+      <div class="column is-three-fifths">
         <enter-animate animation-type="special-fade">
           <figure class="item-cover image is-16by9 animated-placeholder-bg">
             <div v-if="productGame.coverUrl" class="has-ratio cover" :style="'background-image: url(' + productGame.coverUrl + ')'"></div>
           </figure>
         </enter-animate>
       </div>
-      <div class="cell is-col-span-2 has-text-left">
+      <div class="column">
         <enter-animate animation-type="special-fade">
           <h2 class="title" :title="productGame.name">{{ productGame.name }}</h2>
           <p class="subtitle is-6" :title="productGame.releaseDate">{{ formattedDate }}</p>

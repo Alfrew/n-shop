@@ -1,9 +1,13 @@
 <template>
   <div>
-    <h1 class="title has-text-left">Shopping Cart</h1>
+    <h1 class="title">Shopping Cart</h1>
     <transition-fade>
-      <div class="grid is-column-gap-6" v-if="cartProducts.length > 0">
-        <ul class="cell is-col-span-2">
+      <div class="cart columns is-desktop" v-if="cartProducts.length > 0">
+        <div class="column is-one-quarter-desktop">
+          <cart-summary></cart-summary>
+        </div>
+
+        <ul class="column">
           <transition-fade>
             <li v-if="cartTotal > 80">
               <base-notification color="is-success" :is-light="true">Congratulations you've qualified for free shipping!</base-notification>
@@ -15,15 +19,13 @@
             </li>
           </transition-slide>
         </ul>
-
-        <div class="cell">
-          <cart-summary></cart-summary>
-        </div>
       </div>
 
       <base-box v-else>
-        <p class="title">No item in your cart</p>
-        <p>Maybe check something <router-link :to="{ name: 'productList' }">here</router-link></p>
+        <div class="has-text-centered py-6">
+          <h3 class="title">No items in your cart</h3>
+          <p>Maybe check something <router-link :to="{ name: 'productList' }">here</router-link></p>
+        </div>
       </base-box>
     </transition-fade>
   </div>
@@ -46,6 +48,10 @@ const cartTotal = computed<number>(() => store.getters["cart/cartTotal"]);
 
 <style scoped lang="scss">
 @import "../../../scss/variables.scss";
+
+.cart.columns.is-desktop {
+  flex-direction: row-reverse;
+}
 
 .cart-item {
   border-bottom: 2px solid $lightGrayColor;
