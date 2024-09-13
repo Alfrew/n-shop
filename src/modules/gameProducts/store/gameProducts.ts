@@ -67,7 +67,6 @@ export default {
         throw "Can't load more elements";
       }
 
-      payload.take += payload.skip;
       const queryOptions: QueryConstraint[] = generateQueryOptions(payload);
 
       const q = query(collection(db, collectionName), ...queryOptions);
