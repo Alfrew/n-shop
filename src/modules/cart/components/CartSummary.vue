@@ -1,5 +1,5 @@
 <template>
-  <div class="summary py-6 px-4 has-background-light">
+  <div class="summary py-6 px-4 has-background">
     <h2 class="title has-text-centered">Order summary</h2>
     <div class="mb-3 has-border-bottom">
       <p class="is-flex is-justify-content-space-between">

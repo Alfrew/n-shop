@@ -63,7 +63,7 @@ const { formatDate } = useDateParser();
 .has-sticky-header {
   border-collapse: separate;
   thead tr th {
-    background-color: white;
+    background-color: var(--bulma-background);
     position: sticky;
     top: 0;
   }

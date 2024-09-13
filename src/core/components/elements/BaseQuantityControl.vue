@@ -1,10 +1,10 @@
 <template>
   <div class="quantity-control">
-    <button class="button is-white is-left" :disabled="hasReachedMinLimit" @click="reduceQuantity()">
+    <button class="button is-left" :disabled="hasReachedMinLimit" @click="reduceQuantity()">
       <span class="icon"><i class="fa fa-minus"></i></span>
     </button>
     <div class="quantity-control__label">{{ quantity }}</div>
-    <button class="button is-white is-right" :disabled="hasReachedMaxLimit" @click="increaseQuantity()">
+    <button class="button is-right" :disabled="hasReachedMaxLimit" @click="increaseQuantity()">
       <span class="icon"><i class="fa fa-plus"></i></span>
     </button>
   </div>
@@ -59,6 +59,7 @@ $borderRadius: 12px;
   .quantity-control__label {
     padding: 12px 0px;
     min-width: 40px;
+    text-align: center;
   }
 
   button {
