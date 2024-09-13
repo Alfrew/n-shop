@@ -14,9 +14,10 @@ import GameProductItem from "../components/GameProductItem.vue";
 import EnterAnimate from "@/core/components/animations/EnterAnimate.vue";
 import { GameProduct } from "../models/GameProduct";
 import { computed, onMounted, ref } from "vue";
+import { GameProductFilters } from "../models/GameProductFilters";
 
 onMounted(() => {
-  loadProducts();
+  loadProducts(true);
 });
 
 const store = useStore();
@@ -25,10 +26,11 @@ const error = ref("");
 const isLoading = ref(false);
 async function loadProducts(forceRefresh = false) {
   isLoading.value = true;
+  const filters: GameProductFilters = {
+    forceRefresh: forceRefresh,
+  };
   try {
-    await store.dispatch("gameProducts/loadGameProductList", {
-      forceRefresh: forceRefresh,
-    });
+    await store.dispatch("gameProducts/loadGameProductList", filters);
   } catch (err: any) {
     error.value = err.message || "Something went wrong, try again later";
   }
