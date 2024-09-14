@@ -41,9 +41,9 @@ import GameProductItem from "../components/GameProductItem.vue";
 import ProductsFiltersDialog from "../components/ProductsFiltersDialog.vue";
 
 onMounted(() => {
+  document.title = "FinGames";
   loadProducts();
 });
-
 const elementsPerPage = 12;
 
 let currentFilters = reactive<GameProductFilters>({

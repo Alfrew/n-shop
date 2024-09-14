@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title">Shopping Cart</h1>
+    <base-page-title pageTitle="Shopping Cart"></base-page-title>
     <transition-fade>
       <div class="cart columns is-desktop" v-if="cartProducts.length > 0">
         <div class="column is-one-quarter-desktop">
@@ -32,14 +32,14 @@
 </template>
 
 <script setup lang="ts">
-import CartListItem from "../components/CartListItem.vue";
-import CartSummary from "../components/CartSummary.vue";
-import BaseNotification from "@/core/components/elements/BaseNotification.vue";
-import TransitionFade from "@/core/components/animations/TransitionFade.vue";
-import TransitionSlide from "@/core/components/animations/TransitionSlide.vue";
-import { useStore } from "vuex";
 import { CartGameProduct } from "../models/CartGameProduct";
 import { computed } from "vue";
+import { useStore } from "vuex";
+import BaseNotification from "@/core/components/elements/BaseNotification.vue";
+import CartListItem from "../components/CartListItem.vue";
+import CartSummary from "../components/CartSummary.vue";
+import TransitionFade from "@/core/components/animations/TransitionFade.vue";
+import TransitionSlide from "@/core/components/animations/TransitionSlide.vue";
 
 const store = useStore();
 const cartProducts = computed<CartGameProduct[]>(() => store.getters["cart/cartProductList"]);
