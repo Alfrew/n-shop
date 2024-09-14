@@ -27,16 +27,18 @@
 </template>
 
 <script setup lang="ts">
-import BaseQuantityControl from "@/core/components/elements/BaseQuantityControl.vue";
-import { computed, PropType, toRefs } from "vue";
 import { CartGameProduct } from "../models/CartGameProduct";
+import { computed, ComputedRef, PropType, toRefs } from "vue";
+import { RouteLocationRaw } from "vue-router";
 import { useStore } from "vuex";
+import BaseQuantityControl from "@/core/components/elements/BaseQuantityControl.vue";
 
 const props = defineProps({ cartProduct: { type: Object as PropType<CartGameProduct>, required: true } });
 const { cartProduct } = toRefs(props);
 
-const productGameLink = computed(() => {
-  return { name: "productDetail", params: { id: cartProduct.value.id } };
+const productGameLink: ComputedRef<RouteLocationRaw> = computed(() => {
+  const productName = cartProduct.value.name.split(" ").join("-");
+  return { name: "productDetail", params: { id: cartProduct.value.id, title: productName } };
 });
 
 const itemTotal = computed(() => {

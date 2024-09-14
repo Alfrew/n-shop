@@ -29,14 +29,15 @@
 </template>
 
 <script setup lang="ts">
-import EnterAnimate from "@/core/components/animations/EnterAnimate.vue";
 import { computed, toRefs } from "vue";
-import { useStore } from "vuex";
 import { GameProduct } from "../models/GameProduct";
+import { useStore } from "vuex";
+import EnterAnimate from "@/core/components/animations/EnterAnimate.vue";
 import useDateParser from "@/core/hooks/dateParser";
 
-const props = defineProps({ id: { type: String, required: true } });
-const { id } = toRefs(props);
+const props = defineProps({ id: { type: String, required: true }, title: { type: String, required: false, default: "Game Detail" } });
+const { id, title } = toRefs(props);
+document.title = title.value.split("-").join(" ");
 
 const store = useStore();
 const productGame = computed<GameProduct>(() => store.getters["gameProducts/gameProductById"](id.value));
