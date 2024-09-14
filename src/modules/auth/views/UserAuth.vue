@@ -69,15 +69,15 @@ function isFormValid() {
   return true;
 }
 
-const inputMail = ref("");
+const inputMail = ref<string>();
 const controlMail = ref<InputControl>({ id: "mail", validators: { email: true, required: true } });
-const inputPassword = ref("");
+const inputPassword = ref<string>();
 const controlPassword = ref<InputControl>({ id: "password", validators: { password: true, minLength: 8, required: true } });
 function submitForm() {
   if (isFormValid()) {
     const formData: AuthFormData = {
-      email: inputMail.value,
-      password: inputPassword.value,
+      email: inputMail.value!,
+      password: inputPassword.value!,
     };
     sendRequest(formData);
   }

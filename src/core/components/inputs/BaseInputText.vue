@@ -26,7 +26,7 @@ const props = defineProps({
   inputControl: { type: Object as PropType<InputControl>, required: true },
 });
 const { inputControl } = toRefs(props);
-const controlValue = defineModel<string>({ required: true });
+const controlValue = defineModel<string | undefined>({ required: true });
 
 const { isValid, errorMessage, testControlValidity } = useControlValidator(controlValue, inputControl.value);
 const { isTouched, wasTouched } = useControlTouched();
