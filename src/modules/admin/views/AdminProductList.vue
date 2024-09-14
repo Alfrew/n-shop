@@ -1,5 +1,8 @@
 <template>
   <div class="page-wrapper is-flex is-flex-direction-column">
+    <base-dialog :show="isLoading" fixed>
+      <base-spinner></base-spinner>
+    </base-dialog>
     <product-form-dialog :show="isDialogOpen" @close="closeDialog()" :product="selectedProduct"></product-form-dialog>
     <base-confirmation-dialog
       :show="isConfirmDialogOpen"
@@ -40,7 +43,7 @@ const columnList: Column[] = [
 ];
 
 onMounted(() => {
-  loadProducts();
+  loadProducts(true);
 });
 
 const store = useStore();
