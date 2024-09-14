@@ -6,6 +6,8 @@ export interface GameProductFilters extends BaseFilters {
   types?: GameProductType[];
   maxPrice?: Number;
   minPrice?: Number;
+  releasedAfter?: string;
+  releasedBefore?: string;
 }
 
 export interface GameProductSortListItem extends SelectOptionItem {
