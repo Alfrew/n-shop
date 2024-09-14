@@ -36,10 +36,10 @@
   </base-dialog>
 </template>
 
-<!-- Rivedere come gestire i vari form control
-Extra:
--Form should trigger isValid
--Name/id
+<!-- TODO:
+-Rivedere come gestire i vari form control
+  -Extra:
+-Form should could trigger isValid
 -->
 
 <script setup lang="ts">
