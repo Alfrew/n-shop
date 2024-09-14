@@ -7,6 +7,10 @@
   </transition>
 </template>
 
+<!-- TODO:
+-Implement fade group animations
+-->
+
 <script setup lang="ts">
 const props = defineProps({ isForList: { type: Boolean, default: false, required: false } });
 </script>
@@ -16,13 +20,25 @@ const props = defineProps({ isForList: { type: Boolean, default: false, required
   transition: transform 1s;
 }
 
-.fade-enter-active,
+.fade-enter-active {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  animation: fade-in 0.5s ease-out reverse;
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>
