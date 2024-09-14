@@ -26,6 +26,6 @@ const props = defineProps({
 const { color, isLight } = toRefs(props);
 
 const colorClasses = computed(() => {
-  return [color.value, isLight ? "is-light" : ""];
+  return [color.value, isLight.value ? "is-light" : ""];
 });
 </script>
