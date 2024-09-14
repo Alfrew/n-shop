@@ -1,6 +1,7 @@
 <template>
   <div>
     <products-filters-dialog :show="isFiltersDialogOpen" :filters="currentFilters" @close="closeFiltersDialog($event)"></products-filters-dialog>
+    <base-go-to-top></base-go-to-top>
 
     <div class="fixed-grid has-6-cols mb-6">
       <div class="grid">
@@ -34,6 +35,7 @@ import { computed, onMounted, reactive, ref } from "vue";
 import { GameProduct } from "../models/GameProduct";
 import { GameProductFilters, GameProductSortListItem, gameProductSortType } from "../models/GameProductFilters";
 import { useStore } from "vuex";
+import BaseGoToTop from "@/core/components/buttons/BaseGoToTop.vue";
 import BaseNotification from "@/core/components/elements/BaseNotification.vue";
 import BaseSort from "@/core/components/elements/BaseSort.vue";
 import EnterAnimate from "@/core/components/animations/EnterAnimate.vue";
