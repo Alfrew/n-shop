@@ -1,23 +1,30 @@
 <template>
   <div>
+    <products-filters-dialog :show="isFiltersDialogOpen" :filters="currentFilters" @close="closeFiltersDialog($event)"></products-filters-dialog>
+
     <div class="fixed-grid has-6-cols mb-6">
       <div class="grid">
         <div class="cell is-col-span-6 is-col-span-2-tablet"><base-sort :sortList="sortList" @sort-action="changeSort($event)"></base-sort></div>
-        <div class="cell is-col-from-end-1 is-align-content-end"></div>
+        <div class="cell is-col-from-end-1 is-align-content-end"><base-button icon="fa-filter" color="is-link" @click="openFiltersDialog()">Filters</base-button></div>
       </div>
     </div>
 
-    <ul class="grid is-col-min-10 is-column-gap-4 is-row-gap-8">
-      <li v-for="productGame in productGames" :key="productGame.id" class="cell">
-        <enter-animate animationType="special-fade" :has-full-height="true">
-          <game-product-item :product-game="productGame"></game-product-item>
-        </enter-animate>
-      </li>
-    </ul>
+    <div class="fixed-grid has-1-cols has-3-cols-tablet has-4-cols-desktop">
+      <ul class="grid is-column-gap-4 is-row-gap-8">
+        <li v-for="productGame in productGames" :key="productGame.id" class="cell">
+          <enter-animate animationType="special-fade" :has-full-height="true">
+            <game-product-item :product-game="productGame"></game-product-item>
+          </enter-animate>
+        </li>
+      </ul>
+    </div>
 
     <div class="buttons is-centered" v-if="!allLoaded">
       <base-button icon="fa-plus" color="is-primary" class="is-uppercase" :isLoading="isLoading" @click="loadMore(elementsPerPage)">Load more results</base-button>
     </div>
+    <base-notification v-else-if="productGames.length == 0" color="is-warning" :is-light="true" class="has-text-centered">
+      No results with this filters. Try to change the filters
+    </base-notification>
     <base-notification v-else color="is-success" class="has-text-centered" :is-light="true">Congratulations! You've reached the end of the catalog!</base-notification>
   </div>
 </template>
@@ -31,6 +38,7 @@ import BaseNotification from "@/core/components/elements/BaseNotification.vue";
 import BaseSort from "@/core/components/elements/BaseSort.vue";
 import EnterAnimate from "@/core/components/animations/EnterAnimate.vue";
 import GameProductItem from "../components/GameProductItem.vue";
+import ProductsFiltersDialog from "../components/ProductsFiltersDialog.vue";
 
 onMounted(() => {
   loadProducts();
@@ -38,11 +46,24 @@ onMounted(() => {
 
 const elementsPerPage = 12;
 
-const filters = reactive<GameProductFilters>({
+let currentFilters = reactive<GameProductFilters>({
   forceRefresh: true,
   take: elementsPerPage,
   skip: 0,
 });
+
+const isFiltersDialogOpen = ref(false);
+function openFiltersDialog() {
+  isFiltersDialogOpen.value = true;
+}
+function closeFiltersDialog(filters?: GameProductFilters) {
+  if (filters) {
+    currentFilters = { ...currentFilters, ...filters };
+    console.log(currentFilters);
+    loadProducts();
+  }
+  isFiltersDialogOpen.value = false;
+}
 
 const sortList: GameProductSortListItem[] = [
   { label: "Featured", value: "default" },
@@ -56,14 +77,14 @@ const sortList: GameProductSortListItem[] = [
 
 function changeSort(sortValue: gameProductSortType) {
   if (sortValue == "default") {
-    filters.orderProperty = undefined;
-    filters.orderDirection = undefined;
+    currentFilters.orderProperty = undefined;
+    currentFilters.orderDirection = undefined;
   } else if (sortValue.split("-")[1] == "asc" || sortValue.split("-")[1] == "desc") {
-    filters.orderProperty = sortValue.split("-")[0];
-    filters.orderDirection = sortValue.split("-")[1] as "asc" | "desc";
+    currentFilters.orderProperty = sortValue.split("-")[0];
+    currentFilters.orderDirection = sortValue.split("-")[1] as "asc" | "desc";
   }
-  filters.skip = 0;
-  filters.take = elementsPerPage;
+  currentFilters.skip = 0;
+  currentFilters.take = elementsPerPage;
   loadProducts();
 }
 
@@ -75,7 +96,7 @@ const isLoading = ref(false);
 async function loadProducts() {
   isLoading.value = true;
   try {
-    await store.dispatch("gameProducts/loadGameProductList", filters);
+    await store.dispatch("gameProducts/loadGameProductList", currentFilters);
   } catch (err: any) {
     error.value = err.message || "Something went wrong, try again later";
   }
@@ -83,12 +104,12 @@ async function loadProducts() {
 }
 
 async function loadMore(quantity: number) {
-  filters.skip! += quantity;
-  filters.take! += quantity;
+  currentFilters.skip! += quantity;
+  currentFilters.take! += quantity;
 
   isLoading.value = true;
   try {
-    await store.dispatch("gameProducts/loadMoreProducts", filters);
+    await store.dispatch("gameProducts/loadMoreProducts", currentFilters);
   } catch (err: any) {
     error.value = err.message || "Something went wrong, try again later";
   }
@@ -96,7 +117,7 @@ async function loadMore(quantity: number) {
 }
 
 const allLoaded = computed(() => {
-  const areAllLoaded = productGames.value.length < filters.take!;
+  const areAllLoaded = productGames.value.length < currentFilters.take!;
   return areAllLoaded && !isLoading.value;
 });
 </script>
