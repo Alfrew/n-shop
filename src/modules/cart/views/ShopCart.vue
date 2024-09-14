@@ -7,7 +7,7 @@
           <cart-summary></cart-summary>
         </div>
 
-        <ul class="column">
+        <ul class="column cart-list">
           <transition-fade>
             <li v-if="cartTotal > 80">
               <base-notification color="is-success" :is-light="true">Congratulations you've qualified for free shipping!</base-notification>
@@ -51,6 +51,10 @@ const cartTotal = computed<number>(() => store.getters["cart/cartTotal"]);
 
 .cart.columns.is-desktop {
   flex-direction: row-reverse;
+}
+
+.cart-list {
+  position: relative;
 }
 
 .cart-item {
