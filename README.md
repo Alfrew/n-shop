@@ -38,3 +38,4 @@ Credentials to access admin page:
 - Game details page
 - Admin page to add, remove and manage products
 - Clean look and responsive design
+- Dark and light themes
