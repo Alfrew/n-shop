@@ -24,7 +24,7 @@
       <base-box v-else>
         <div class="has-text-centered py-6">
           <h3 class="title">No items in your cart</h3>
-          <p>Maybe check something <router-link :to="{ name: 'productList' }">here</router-link></p>
+          <p>Maybe check something <router-link :to="{ name: 'productList' }" class="link">here</router-link></p>
         </div>
       </base-box>
     </transition-fade>

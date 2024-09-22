@@ -17,7 +17,7 @@
           <enter-animate animation-type="special-fade">
             <p class="is-size-4 has-text-weight-medium">${{ productGame.price }}</p>
           </enter-animate>
-          <base-button icon="fa-shopping-cart" color="is-success" mode="is-outlined" class="is-uppercase" @click="addToCart(productGame)">Add to cart</base-button>
+          <base-button icon="fa-shopping-cart" color="is-primary" mode="is-outlined" class="is-uppercase" @click="addToCart(productGame)">Add to cart</base-button>
         </div>
         <enter-animate animation-type="special-fade">
           <h3 class="title is-5">Description</h3>
