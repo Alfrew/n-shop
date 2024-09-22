@@ -16,7 +16,6 @@
       </p>
     </header>
     <div class="card-footer">
-      <router-link :to="productGameLink" class="card-footer-item">Details</router-link>
       <button class="card-footer-item hover-scale" @click="addToCart(productGame)">
         <span class="icon has-text-primary"><i class="fa fa-cart-plus" aria-hidden="true"></i></span>
       </button>
