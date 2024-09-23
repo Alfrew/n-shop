@@ -64,13 +64,16 @@ $borderRadius: 12px;
 
   button {
     border-radius: $borderRadius;
+    border-width: 0px;
     &.is-left {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
+      border-right-width: 1px;
     }
     &.is-right {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
+      border-left-width: 1px;
     }
   }
 }
