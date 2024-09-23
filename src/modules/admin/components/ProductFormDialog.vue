@@ -36,10 +36,10 @@
   </base-dialog>
 </template>
 
-<!-- Rivedere come gestire i vari form control
-Extra:
--Form should trigger isValid
--Name/id
+<!-- TODO:
+-Rivedere come gestire i vari form control
+  -Extra:
+-Form should could trigger isValid
 -->
 
 <script setup lang="ts">
@@ -128,15 +128,15 @@ const isFormValid = computed(function () {
   return true;
 });
 
-const inputName = ref("");
+const inputName = ref<string>();
 const nameControl: InputControl = { controlLabel: "Product Name", id: "productName", validators: { required: true } };
-const inputImageUrl = ref("");
+const inputImageUrl = ref<string>();
 const imageUrlControl: InputControl = { controlLabel: "Product Image Url", id: "imageUrl", validators: { required: true } };
-const inputCoverUrl = ref("");
+const inputCoverUrl = ref<string>();
 const coverUrlControl: InputControl = { controlLabel: "Product Cover Url", id: "coverUrl", validators: { required: true } };
-const inputDescription = ref("");
+const inputDescription = ref<string>();
 const descriptionControl: TextareaControl = { controlLabel: "Product Description", id: "description", rows: 10, validators: { required: true, minLength: 150 } };
-const inputPrice = ref<number>(0);
+const inputPrice = ref<number>();
 const priceControl: InputControl = { controlLabel: "Product Price", id: "price", validators: { required: true, minValue: 0 } };
 const inputDate = ref<string>(new Date().toISOString().split("T")[0]);
 const dateControl: InputControl = { controlLabel: "Product Release Date", id: "releaseDate", validators: { required: true, minValue: 0 } };
@@ -146,22 +146,22 @@ const typeControl: SelectControl = {
   id: "type",
   validators: { required: true },
   optionList: [
-    { value: "GAME", label: "Game" },
-    { value: "DLC", label: "DLC" },
-    { value: "BUNDLE", label: "Bundle" },
+    { label: "Game", value: "GAME" },
+    { label: "DLC", value: "DLC" },
+    { label: "Bundle", value: "BUNDLE" },
   ],
 };
-const inputInStock = ref(0);
+const inputInStock = ref();
 const stockControl: InputControl = { controlLabel: "Product Stock", id: "stock", validators: { required: true, minValue: 0, maxValue: 25 } };
 function submitForm() {
   if (isFormValid.value) {
     const formData: GameProductFormData = {
-      coverUrl: inputCoverUrl.value,
-      description: inputDescription.value,
-      imageUrl: inputImageUrl.value,
-      inStock: inputInStock.value,
-      name: inputName.value,
-      price: inputPrice.value,
+      coverUrl: inputCoverUrl.value!,
+      description: inputDescription.value!,
+      imageUrl: inputImageUrl.value!,
+      inStock: inputInStock.value!,
+      name: inputName.value!,
+      price: inputPrice.value!,
       releaseDate: inputDate.value,
       type: inputType.value,
     };
@@ -169,12 +169,12 @@ function submitForm() {
   }
 }
 function resetForm() {
-  inputName.value = "";
-  inputImageUrl.value = "";
-  inputCoverUrl.value = "";
-  inputDescription.value = "";
-  inputPrice.value = 0;
-  inputInStock.value = 0;
+  inputName.value = undefined;
+  inputImageUrl.value = undefined;
+  inputCoverUrl.value = undefined;
+  inputDescription.value = undefined;
+  inputPrice.value = undefined;
+  inputInStock.value = undefined;
   inputDate.value = new Date().toISOString().split("T")[0];
   inputType.value = "GAME";
 

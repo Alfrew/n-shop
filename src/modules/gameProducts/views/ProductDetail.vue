@@ -17,7 +17,7 @@
           <enter-animate animation-type="special-fade">
             <p class="is-size-4 has-text-weight-medium">${{ productGame.price }}</p>
           </enter-animate>
-          <base-button icon="fa-shopping-cart" color="is-success" mode="is-outlined" class="is-uppercase" @click="addToCart(productGame)">Add to cart</base-button>
+          <base-button icon="fa-shopping-cart" color="is-primary" mode="is-outlined" class="is-uppercase" @click="addToCart(productGame)">Add to cart</base-button>
         </div>
         <enter-animate animation-type="special-fade">
           <h3 class="title is-5">Description</h3>
@@ -29,14 +29,15 @@
 </template>
 
 <script setup lang="ts">
-import EnterAnimate from "@/core/components/animations/EnterAnimate.vue";
 import { computed, toRefs } from "vue";
-import { useStore } from "vuex";
 import { GameProduct } from "../models/GameProduct";
+import { useStore } from "vuex";
+import EnterAnimate from "@/core/components/animations/EnterAnimate.vue";
 import useDateParser from "@/core/hooks/dateParser";
 
-const props = defineProps({ id: { type: String, required: true } });
-const { id } = toRefs(props);
+const props = defineProps({ id: { type: String, required: true }, title: { type: String, required: false, default: "Game Detail" } });
+const { id, title } = toRefs(props);
+document.title = title.value.split("-").join(" ");
 
 const store = useStore();
 const productGame = computed<GameProduct>(() => store.getters["gameProducts/gameProductById"](id.value));

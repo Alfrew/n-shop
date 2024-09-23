@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1 class="title">Shopping Cart</h1>
+    <base-page-title pageTitle="Shopping Cart"></base-page-title>
     <transition-fade>
       <div class="cart columns is-desktop" v-if="cartProducts.length > 0">
         <div class="column is-one-quarter-desktop">
           <cart-summary></cart-summary>
         </div>
 
-        <ul class="column">
+        <ul class="column cart-list">
           <transition-fade>
             <li v-if="cartTotal > 80">
               <base-notification color="is-success" :is-light="true">Congratulations you've qualified for free shipping!</base-notification>
@@ -24,7 +24,7 @@
       <base-box v-else>
         <div class="has-text-centered py-6">
           <h3 class="title">No items in your cart</h3>
-          <p>Maybe check something <router-link :to="{ name: 'productList' }">here</router-link></p>
+          <p>Maybe check something <router-link :to="{ name: 'productList' }" class="link">here</router-link></p>
         </div>
       </base-box>
     </transition-fade>
@@ -32,14 +32,14 @@
 </template>
 
 <script setup lang="ts">
-import CartListItem from "../components/CartListItem.vue";
-import CartSummary from "../components/CartSummary.vue";
-import BaseNotification from "@/core/components/elements/BaseNotification.vue";
-import TransitionFade from "@/core/components/animations/TransitionFade.vue";
-import TransitionSlide from "@/core/components/animations/TransitionSlide.vue";
-import { useStore } from "vuex";
 import { CartGameProduct } from "../models/CartGameProduct";
 import { computed } from "vue";
+import { useStore } from "vuex";
+import BaseNotification from "@/core/components/elements/BaseNotification.vue";
+import CartListItem from "../components/CartListItem.vue";
+import CartSummary from "../components/CartSummary.vue";
+import TransitionFade from "@/core/components/animations/TransitionFade.vue";
+import TransitionSlide from "@/core/components/animations/TransitionSlide.vue";
 
 const store = useStore();
 const cartProducts = computed<CartGameProduct[]>(() => store.getters["cart/cartProductList"]);
@@ -51,6 +51,10 @@ const cartTotal = computed<number>(() => store.getters["cart/cartTotal"]);
 
 .cart.columns.is-desktop {
   flex-direction: row-reverse;
+}
+
+.cart-list {
+  position: relative;
 }
 
 .cart-item {

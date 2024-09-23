@@ -7,7 +7,7 @@
       <base-spinner></base-spinner>
     </base-dialog>
 
-    <h1 class="title">Login page</h1>
+    <base-page-title pageTitle="Login page"></base-page-title>
     <base-box>
       <form @submit.prevent="submitForm">
         <base-input-mail v-model="inputMail" :input-control="controlMail" @is-valid="updateValidity('email', $event)"></base-input-mail>
@@ -24,14 +24,14 @@
 </template>
 
 <script setup lang="ts">
+import { AuthForm } from "../models/AuthForm";
+import { AuthFormData } from "../models/AuthFormData";
+import { InputControl } from "@/core/components/inputs/InputControl";
+import { Ref, computed, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import BaseInputMail from "@/core/components/inputs/BaseInputMail.vue";
 import BaseInputPassword from "@/core/components/inputs/BaseInputPassword.vue";
-import { Ref, computed, ref } from "vue";
-import { AuthFormData } from "../models/AuthFormData";
-import { AuthForm } from "../models/AuthForm";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { InputControl } from "@/core/components/inputs/InputControl";
 
 const mode: Ref<"login" | "signup"> = ref("login");
 const submitButtonCaption = computed(() => {
@@ -69,15 +69,15 @@ function isFormValid() {
   return true;
 }
 
-const inputMail = ref("");
+const inputMail = ref<string>();
 const controlMail = ref<InputControl>({ id: "mail", validators: { email: true, required: true } });
-const inputPassword = ref("");
+const inputPassword = ref<string>();
 const controlPassword = ref<InputControl>({ id: "password", validators: { password: true, minLength: 8, required: true } });
 function submitForm() {
   if (isFormValid()) {
     const formData: AuthFormData = {
-      email: inputMail.value,
-      password: inputPassword.value,
+      email: inputMail.value!,
+      password: inputPassword.value!,
     };
     sendRequest(formData);
   }

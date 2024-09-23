@@ -1,11 +1,14 @@
 <template>
   <div class="page-wrapper is-flex is-flex-direction-column">
+    <base-dialog :show="isLoading" fixed>
+      <base-spinner></base-spinner>
+    </base-dialog>
     <product-form-dialog :show="isDialogOpen" @close="closeDialog()" :product="selectedProduct"></product-form-dialog>
     <base-confirmation-dialog
       :show="isConfirmDialogOpen"
       :message="'Are you sure to delete the selected item?'"
       @close="deleteElement($event)"></base-confirmation-dialog>
-    <h1 class="title">Products admin page</h1>
+    <base-page-title pageTitle="Admin products management"></base-page-title>
     <div class="buttons is-justify-content-end">
       <base-button color="is-primary" icon="fa-plus" @click="openDialog()">Add new product</base-button>
     </div>
@@ -14,13 +17,13 @@
 </template>
 
 <script setup lang="ts">
-import { GameProduct } from "@/modules/gameProducts/models/GameProduct";
-import BaseTable from "@/core/components/elements/BaseTable.vue";
 import { Column, IconActionEvent } from "@/core/components/elements/BaseTableUtils";
-import ProductFormDialog from "../components/ProductFormDialog.vue";
-import BaseConfirmationDialog from "@/core/components/utilities/BaseConfirmationDialog.vue";
 import { computed, onMounted, ref } from "vue";
+import { GameProduct } from "@/modules/gameProducts/models/GameProduct";
 import { useStore } from "vuex";
+import BaseConfirmationDialog from "@/core/components/utilities/BaseConfirmationDialog.vue";
+import BaseTable from "@/core/components/elements/BaseTable.vue";
+import ProductFormDialog from "../components/ProductFormDialog.vue";
 
 const columnList: Column[] = [
   { header: "Name", dataKey: "name", textAlign: "has-text-left" },
@@ -40,7 +43,7 @@ const columnList: Column[] = [
 ];
 
 onMounted(() => {
-  loadProducts();
+  loadProducts(true);
 });
 
 const store = useStore();

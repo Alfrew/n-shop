@@ -16,7 +16,6 @@
       </p>
     </header>
     <div class="card-footer">
-      <router-link :to="productGameLink" class="card-footer-item">Details</router-link>
       <button class="card-footer-item hover-scale" @click="addToCart(productGame)">
         <span class="icon has-text-primary"><i class="fa fa-cart-plus" aria-hidden="true"></i></span>
       </button>
@@ -25,17 +24,19 @@
 </template>
 
 <script setup lang="ts">
-import BaseTag from "@/core/components/elements/BaseTag.vue";
-import { PropType, computed, toRefs } from "vue";
+import { ComputedRef, PropType, computed, toRefs } from "vue";
 import { GameProduct } from "../models/GameProduct";
+import { RouteLocationRaw } from "vue-router";
 import { useStore } from "vuex";
+import BaseTag from "@/core/components/elements/BaseTag.vue";
 import useDateParser from "@/core/hooks/dateParser";
 
 const props = defineProps({ productGame: { type: Object as PropType<GameProduct>, required: true } });
 const { productGame } = toRefs(props);
 
-const productGameLink = computed(() => {
-  return { name: "productDetail", params: { id: productGame.value.id } };
+const productGameLink: ComputedRef<RouteLocationRaw> = computed(() => {
+  const productName = productGame.value.name.split(" ").join("-");
+  return { name: "productDetail", params: { id: productGame.value.id, title: productName } };
 });
 
 const { formatDate } = useDateParser();

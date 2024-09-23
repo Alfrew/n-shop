@@ -67,7 +67,6 @@ export default {
         throw "Can't load more elements";
       }
 
-      payload.take += payload.skip;
       const queryOptions: QueryConstraint[] = generateQueryOptions(payload);
 
       const q = query(collection(db, collectionName), ...queryOptions);
@@ -204,11 +203,20 @@ function generateQueryOptions(filters: GameProductFilters) {
   }
 
   // Custom Filters
-  if (filters.types) {
+  if (filters.types && filters.types.length > 0) {
     queryOptions.push(where("type", "in", filters.types));
+    if (filters.orderProperty != "type") queryOptions.push(orderBy("type", "asc"));
+  }
+  if (filters.releasedAfter) {
+    queryOptions.push(where("releaseDate", ">=", filters.releasedAfter));
+    if (filters.orderProperty != "releaseDate") queryOptions.push(orderBy("releaseDate", "asc"));
+  }
+  if (filters.releasedBefore) {
+    queryOptions.push(where("releaseDate", "<=", filters.releasedBefore));
   }
   if (filters.minPrice) {
     queryOptions.push(where("price", ">=", filters.minPrice));
+    if (filters.orderProperty != "price") queryOptions.push(orderBy("price", "asc"));
   }
   if (filters.maxPrice) {
     queryOptions.push(where("price", "<=", filters.maxPrice));

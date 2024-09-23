@@ -15,6 +15,13 @@
   </div>
 </template>
 
+<!-- TODO:
+-Improve data type
+-Check control validator
+-Create validators for Date
+-Create dateTime component
+-->
+
 <script setup lang="ts">
 import useControlTouched from "@/core/hooks/controlTouched";
 import useControlValidator from "@/core/hooks/controlValidator";
